@@ -77,7 +77,7 @@ static void menu_imposta(){
 static int get_ushort(unsigned short* choice){
   char choiceStr[2];
   int result = get_line(choiceStr);
-  if (result != GOOD)
+  if (result != 0)
     return result;
   char* strInit;
   *choice = (unsigned short) strtol(choiceStr, &strInit, 10);
