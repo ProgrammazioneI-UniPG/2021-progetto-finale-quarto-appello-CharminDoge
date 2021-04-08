@@ -81,7 +81,7 @@ static int get_ushort(unsigned short* choice){
     return result;
   char* strInit;
   *choice = (unsigned short) strtol(choiceStr, &strInit, 10);
-  return GOOD;
+  return 0;
 }
 
 
