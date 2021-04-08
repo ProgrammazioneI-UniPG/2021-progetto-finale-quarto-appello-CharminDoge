@@ -300,7 +300,6 @@ static void uccidi_astronauta(int killer, struct Stanza* stanza_uccisione){
   if (check_end_game() == 0){
     int prevroom_astronauti = 0;
     for (int player = 0; player < n_players; player++){
-      //TODO: sostituisci stanza_precedente con indietro
       if ((giocatori+player)->player_room == (stanza_uccisione)->stanza_precedente)
         prevroom_astronauti++;
     }
@@ -660,24 +659,18 @@ int gioca(){
 }
 
 
-//TODO: log degli eventi suddiviso per turni
-//Turno 1
-//red è stato ucciso da blue
-//blue è stato scoperto
-//
-//Turno 2
-//yellow ha fatto una chiamata d'emergenza
-//TODO: da chiamare
 int deallocate_memory(){
   printf("dealloco la memoria...\n");
   free(giocatori);
+  giocatori = NULL;
   struct Stanza* cycle_stanza = lista_stanze;
   struct Stanza* tmp_stanza;
   do{
     tmp_stanza = cycle_stanza->stanza_precedente;
     free(cycle_stanza);
     cycle_stanza = tmp_stanza;
-  } while (cycle_stanza->stanza_precedente != NULL);
+  } while (tmp_stanza != NULL);
+  lista_stanze = NULL;
   quest_da_finire = 0;
   n_stanze = 0;
   n_players = 0;
