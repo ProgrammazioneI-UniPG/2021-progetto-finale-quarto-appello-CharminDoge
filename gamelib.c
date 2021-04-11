@@ -19,17 +19,17 @@ const char room[4][17] = {"vuota", "quest_semplice", "quest_complicata", "botola
 const char state[4][13] = {"astronauta", "impostore", "assassinato", "defenestrato"};
 const char colors[10][7] = {"red", "blue", "green", "yellow", "orange", "black", "white", "purple", "cyan", "brown"};
 
-
+// printf color set red
 static void set_red(){
   printf("\033[0;31m");
 }
 
-
+//printf color set default
 static void color_reset(){
   printf("\033[0m");
 }
 
-
+// debug function to print several info
 static void debug_info(){
   set_red();
   printf("\nImpostati %d giocatori, %d stanze. Rimangono %d quest da finire\n", n_players, n_stanze, quest_da_finire);
@@ -73,7 +73,7 @@ static void menu_imposta(){
   printf("2) Termina impostazione gioco\n");
 }
 
-
+// takes int as input and converts it to unsigned short
 static int get_ushort(unsigned short* choice){
   char choiceStr[2];
   int result = get_line(choiceStr);
@@ -89,7 +89,7 @@ static void menu_quest(){
   printf("Imposta il numero di quest [4-20]: ");
 }
 
-
+// shuffles a n-long array of ints using 100 cycles
 static void randomize_intarray(int* player_array, int n){
   int r_int1 = 0;
   int r_int2 = 0;
@@ -198,7 +198,7 @@ int imposta_gioco(){
   return inizia_gioco();
 }
 
-
+// checks for exit condition (quest = 0 || n_impostori == 0 || n_impostori >= n_astronauti)
 static int check_end_game(){
   if (quest_da_finire == 0)
     return 1;
@@ -438,7 +438,7 @@ static void avanza(int giocatore){
   }
 }
 
-
+// checks for any alive astronauts in the room 
 static int check_killable(struct Stanza* room){
   for (int player = 0; player < n_players; player++){
     if ((giocatori+player)->player_room == room && (giocatori+player)->player_state == astronauta){
@@ -455,7 +455,7 @@ static int check_killable(struct Stanza* room){
   return 0;
 }
 
-
+// checks for any dead astronauts in the room
 static int anyone_killed(struct Stanza* room){
   for (int player = 0; player < n_players; player++){
     if ((giocatori+player)->player_room == room && (giocatori+player)->player_state == assassinato){
@@ -472,7 +472,7 @@ static int anyone_killed(struct Stanza* room){
   return 0;
 }
 
-
+// returns number of alive players in the room
 static int players_in_room(struct Stanza* room){
   int count = 0;
   for (int player = 0; player < n_players; player++){
@@ -549,7 +549,7 @@ static void get_int_azione(int* func, int giocatore){
   *func = arr_func[choice-1];
 }
 
-
+// prints some info about the player
 static void print_info(int giocatore){
   int n_impostori = 0;
   printf("%s sei un %s\n", colors[(giocatori+giocatore)->player_name], state[(giocatori+giocatore)->player_state]);
